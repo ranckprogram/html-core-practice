@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .select {
+      margin: 200px auto;
+      width: 120px;
+
+    }
+
+    .select .name {
+      box-sizing: border-box;
+      display: block;
+      height: 30px;
+      padding: 4px 12px;
+      line-height: 22px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .selectList {
+      display: none;
+      border: 1px solid #ddd;
+      padding: 0;
+      margin: 3px 0 0 0;
+    }
+
+
+
+    .selectList li {
+      color: #555;
+      padding: 4px 12px;
+      list-style: none;
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+
+    .selectList li:hover {
+      background: #fff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .avtive {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="select">
+    <span class="name" id="selectValue">大学</span>
+
+    <ul class="selectList" id="selectList">
+      <li data-value="小学">小学</li>
+      <li data-value="初中">初中</li>
+      <li data-value="高中">高中</li>
+    </ul>
+  </div>
+
+
+  <script>
+    const selectValue = document.querySelector('#selectValue')
+    const selectList = document.querySelector("#selectList")
+
+    selectValue.addEventListener('click', function (e) {
+      selectList.classList.add('avtive')
+    }, false)
+
+    document.addEventListener('click', function (e) {
+      selectList.classList.remove('avtive')
+    }, true)
+
+    selectList.addEventListener('click', function (e) {
+      if (e.target) {
+        selectValue.innerHTML = e.target.dataset.value
+      }
+    }, false)
+
+  </script>
+</body>
+
+</html>

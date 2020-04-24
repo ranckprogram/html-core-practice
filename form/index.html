@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    input:invalid {
+      border: 2px dashed red;
+    }
+
+    input:valid {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="#" method="post" enctype="multipart/form-data">
+    <fieldset>
+      <legend>Fruit juice size</legend>
+
+      <div>
+        <label for="name">name</label>
+        <input type="text" id="name" name="name" multiple required>
+      </div>
+
+      <div>
+        <label for="password">password</label>
+        <input type="password" id="password" name="password">
+      </div>
+
+      <div>
+        <label for="search">search</label>
+        <input type="search" id="search" name="search">
+      </div>
+
+      <div>
+        <label for="mail">E-mail:</label>
+        <input type="email" id="mail" name="mail">
+      </div>
+      <div>
+        <label for="msg">Message:</label>
+        <textarea id="msg" name="msg"></textarea>
+      </div>
+
+      <div>
+        <label for="msginner">Message:
+          <textarea id="msginner" name="msginner" multiple></textarea>
+        </label>
+      </div>
+      <div>
+        <label for="span">Message:</label>
+        <span id="span" name="msg" value="span"></textarea>
+      </div>
+
+      <select multiple id="multi" name="multi">
+        <option>Banana</option>
+        <option>Cherry</option>
+        <option>Lemon</option>
+      </select>
+
+      <div>
+        <label for="myFruit">What's your favorite fruit?</label>
+        <input type="text" name="myFruit" id="myFruit" list="mySuggestion">
+        <datalist id="mySuggestion">
+          <option>Apple</option>
+          <option>Banana</option>
+          <option>Blackberry</option>
+          <option>Blueberry</option>
+          <option>Lemon</option>
+          <option>Lychee</option>
+          <option>Peach</option>
+          <option>Pear</option>
+        </datalist>
+      </div>
+
+      <div>
+        <label for="carrots">
+          checkbox
+        </label>
+        <input type="checkbox" checked id="carrots" name="carrots" value="carrots">
+      </div>
+
+
+      <div>
+        <input type="color" name="color" id="color">
+
+      </div>
+
+      <div>
+        <progress max="100" value="75">75/100</progress>
+      </div>
+
+      <div>
+        <meter min="0" max="100" value="75" low="33" high="66" optimum="50">75</meter>
+
+      </div>
+
+      <div>
+        <input type="image" alt="Click me!"
+          src="https://fanyi-cdn.cdn.bcebos.com/static/translation/img/header/logo_40c4f13.svg" width="80"
+          height="30" />
+
+      </div>
+
+      <div class="button">
+        <button type="submit">Send your message</button>
+      </div>
+
+
+    </fieldset>
+
+  </form>
+
+  <script>
+
+  </script>
+</body>
+
+</html>
