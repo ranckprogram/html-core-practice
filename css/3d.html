@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .universe {
+      width: 400px;
+      height: 300px;
+      background-color: #020202;
+      margin: 200px auto;
+    }
+
+    .star {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 40%, #fcfcfc, #efeff1 28%, #9b5050 100%);
+
+      line-height: 50px;
+      text-align: center;
+    }
+
+    .rotate .star {}
+
+    .rotate {
+      display: flex;
+      justify-content: space-between;
+      width: 400px;
+
+      animation: turn 4s linear infinite;
+      transform: rotateX(45deg);
+
+    }
+
+    @keyframes turn {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      25% {
+        -webkit-transform: rotate(90deg);
+      }
+
+      50% {
+        -webkit-transform: rotate(180deg);
+      }
+
+      75% {
+        -webkit-transform: rotate(270deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="universe">
+    <div class="rotate">
+      <div class="star">dns</div>
+      <div class="star">dhcp</div>
+      <div class="star">controller</div>
+      <div class="star">dns</div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
