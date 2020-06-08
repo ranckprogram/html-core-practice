@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <textarea name="" id="textarea" cols="30" rows="10"></textarea>
+
+  <script>
+      console.log("textarea 可以 e.target.value.split(‘\n’)")
+
+    const textarea = document.querySelector('#textarea');
+    textarea.onchange = function (e) {
+      console.log(e)
+      console.log(e.target.value.split("\n"))
+    }
+  </script>
+</body>
+
+</html>
