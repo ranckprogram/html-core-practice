@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .content {
+      background-color: #ddd;
+
+      height: 500px;
+      width: 500px;
+      margin: 200px auto;
+      /* border-radius: 50%; */
+      /* animation: line 6s infinite linear; */
+
+
+    }
+
+    .inner {
+      height: inherit;
+      /* border: 1px solid #f66; */
+      /* animation: circle 6s infinite linear; */
+
+    }
+
+    .box {
+      position: absolute;
+      display: block;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      background-color: #f66;
+      border-radius: 50%;
+
+      /* animation: circle 2s  infinite linear; */
+    }
+
+    @keyframes circle {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    @keyframes line {
+      0% {
+        transform: translate(0);
+      }
+
+      25% {
+        transform: translate(-50%);
+      }
+
+      50% {
+        transform: translate(0);
+
+      }
+
+      75% {
+        transform: translate(50%);
+      }
+
+      100% {
+        transform: translate(0);
+      }
+
+
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="content" id="card">
+    <div class="inner">
+      <div class="box">乾</div>
+      <!-- <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div>
+      <div class="box"></div> -->
+    </div>
+  </div>
+
+  <script>
+    const content = document.querySelector("#card")
+    const cardList = document.querySelectorAll("#card .box")
+
+    const maxWidth = content.clientWidth
+    const maxHeight = content.clientHeight
+
+    const circleX = maxWidth / 2
+    const circleY = maxHeight / 2
+    const orignPoint = [circleX, circleY]
+
+    const r = 100 // 圆半径
+
+    const boxWidhth = 25
+
+
+
+    console.dir(content.clientWidth)
+
+    function init() {
+      render()
+      let i = 0
+      setInterval(() => {
+        i = i + 0.02
+        render(i)
+      }, 30)
+    }
+
+    function render(increment = 0) {
+      const angle = 2 * Math.PI / cardList.length
+      Array.from(cardList).forEach((card, index) => {
+        const x = Math.sin(index * angle + increment) * r + circleX - boxWidhth + "px"
+        const y = Math.cos(index * angle + increment) * r + circleY - boxWidhth + "px"
+        card.setAttribute("style", `transform: translate(${x}, ${y})`)
+      })
+    }
+
+    function move() {
+
+    }
+
+    init()
+
+  </script>
+
+</body>
+
+</html>
