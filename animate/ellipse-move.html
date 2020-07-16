@@ -77,13 +77,13 @@
   <div class="content" id="card">
     <div class="inner">
       <div class="box">乾</div>
-      <!-- <div class="box"></div>
       <div class="box"></div>
       <div class="box"></div>
       <div class="box"></div>
       <div class="box"></div>
       <div class="box"></div>
-      <div class="box"></div> -->
+      <div class="box"></div>
+      <div class="box"></div>
     </div>
   </div>
 
@@ -118,14 +118,14 @@
     function render(increment = 0) {
       const angle = 2 * Math.PI / cardList.length
       Array.from(cardList).forEach((card, index) => {
-        const x = Math.sin(index * angle + increment) * r + circleX - boxWidhth + "px"
+        const x = Math.sin(index * angle + increment) * 2 * r + circleX - boxWidhth + "px"
         const y = Math.cos(index * angle + increment) * r + circleY - boxWidhth + "px"
         card.setAttribute("style", `transform: translate(${x}, ${y})`)
       })
     }
 
     function move() {
-      
+
     }
 
     init()
