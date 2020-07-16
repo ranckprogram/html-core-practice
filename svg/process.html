@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <svg width="800">
+    <defs>
+      <linearGradient id="linear">
+        <stop offset="0%" style="stop-color: red;"></stop>
+        <stop offset="15%" style="stop-color: #ffb600;"></stop>
+        <stop offset="30%" style="stop-color: #fff600;"></stop>
+        <stop offset="40%" style="stop-color: #a5ff00;"></stop>
+        <stop offset="60%" style="stop-color: #00a9ff;"></stop>
+        <stop offset="70%" style="stop-color: #0400ff;"></stop>
+        <stop offset="100%" style="stop-color: purple"></stop>
+      </linearGradient>
+    </defs>
+    <rect x="0" width="400" height="30" style="fill:url(#linear);stroke:#ddd;"></rect>
+    <rect width="400" height="30" id="control" fill="#fff"></rect>
+  </svg>
+
+  <script>
+    const percent = 0.8;
+    const control = document.querySelector("#control")
+
+    const width = control.attributes.width.value;
+
+
+    control.setAttribute("width", width * (1 - percent));
+    control.setAttribute("x", width * percent);
+
+    console.dir(control)
+    console.dir()
+  </script>
+</body>
+
+</html>
