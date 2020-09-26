@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+  <style>
+    svg {
+      width: 300px;
+      display: block;
+      position: absolute;
+    }
+
+    .ball {
+      /* width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      offset-path: path('M10 80 Q 77.5 10, 145 80 T 280 80');
+      offset-distance: 0%; */
+      animation: red-ball 2s linear infinite;
+      /* alternate */
+      offset-path: path('M10 80 Q 77.5 10, 145 80 T 280 80');
+    }
+
+    @keyframes red-ball {
+      from {
+        offset-distance: 0%;
+      }
+
+      to {
+        offset-distance: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <svg>
+
+    <rect class="ball"
+      style="width: 10px; height: 10px; background-color: red;  offset-distance: 0%; ">
+    </rect>
+  </svg>
+
+  <!-- <div class="ball"></div> -->
+
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <script>
+
+// offset-path: path('M10 80 Q 77.5 10, 145 80 T 280 80'); 
+  </script>
+
+
+</body>
+
+</html>
