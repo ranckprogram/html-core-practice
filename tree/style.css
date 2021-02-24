@@ -1,0 +1,37 @@
+#tree {
+  width: 500px;
+  margin: 200px auto;
+  border: 1px solid #f00;
+}
+
+.tree-list {
+  padding-left: 20px;
+}
+
+.tree-item {
+}
+.tree-icon {
+  position: relative;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  vertical-align: bottom;
+}
+.tree-icon::before {
+  display: block;
+  position: absolute;
+  content: "";
+  border-top: 1px dotted #dbdbdb;
+  width: 50%;
+  left: 10px;
+  top: 10px;
+}
+
+.tree-icon::after {
+  display: block;
+  position: absolute;
+  content: "";
+  border-left: 1px dotted #dbdbdb;
+  height: 50%;
+  left: 10px;
+}

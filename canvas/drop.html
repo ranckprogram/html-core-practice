@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input style="display: none;" type="file" name="picture" accept="image/png, image/jpeg" />
+
+  <canvas id="canvas" style="border: 1px solid #ddd;"></canvas>
+
+
+  <script>
+
+    const canvas = document.querySelector('#canvas')
+
+
+    function readFile(file) {
+      const fileReader = new FileReader();
+      fileReader.onload = function (event) {
+        console.log(event.target.result)
+        const imageUrl = event.target.result
+        writeCanvas(imageUrl)
+      }
+      fileReader.readAsDataURL(file)
+    }
+
+    function writeCanvas(src) {
+      const image = new Image()
+
+      image.onload = function () {
+        console.log(image)
+        canvas.getContext("2d").drawImage(image, 0, 0, 302, 152);
+
+      }
+      image.src = src
+
+    }
+
+    // stop FireFox from replacing the whole page with the file.
+    canvas.ondragover = function () { return false; };
+
+    // Add drop handler
+    canvas.ondrop = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e = e || window.event;
+      var files = e.dataTransfer.files;
+      console.log(e, files)
+      if (files) {
+        readFile(files[0]);
+      }
+    }
+  </script>
+</body>
+
+</html>
