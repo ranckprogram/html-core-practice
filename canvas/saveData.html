@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input style="display: none;" type="file" name="picture" accept="image/png, image/jpeg" />
+
+  <canvas id="canvas" style="border: 1px solid #ddd;"></canvas>
+
+  <button onclick="handleClickSave()">save</button>
+  <button onclick="handleClickExport()">export</button>
+
+  <button onclick="handleClickRead()">read</button>
+
+
+  <script>
+
+    const canvas = document.querySelector('#canvas')
+    const context = canvas.getContext("2d")
+
+
+    function readFile(file) {
+      const fileReader = new FileReader();
+      fileReader.onload = function (event) {
+        const imageUrl = event.target.result
+        writeCanvas(imageUrl)
+      }
+      fileReader.readAsDataURL(file)
+    }
+
+    function writeCanvas(src) {
+      const image = new Image()
+
+      image.onload = function () {
+        context.drawImage(image, 0, 0, 302, 152);
+      }
+      image.src = src
+
+    }
+
+    // stop FireFox from replacing the whole page with the file.
+    canvas.ondragover = function () { return false; };
+
+    // Add drop handler
+    canvas.ondrop = function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e = e || window.event;
+      var files = e.dataTransfer.files;
+      console.log(e, files)
+      if (files) {
+        readFile(files[0]);
+      }
+    }
+
+
+    const dataZone = {
+      x: 5,
+      y: 5,
+      width: 10,
+      height: 10
+    };
+
+    function handleClickSave() {
+      const message = "别偷窥"
+      setCanvasData(message)
+    }
+
+    function handleClickExport () {
+
+    }
+    
+    function handleClickRead() {
+      console.log(getCanvasData())
+    };
+
+
+
+    /**
+     * 1.汉字转数字
+     * 2.一个像素代表一个汉字
+     * 3.汉数字高位补0两个数字分组分割
+     * 4.
+     * 
+     * 机选像素（返回像素集合）；
+    */
+    function getCanvasData() {
+      const imageData = context.getImageData(0, 0, 20, 20);
+
+      const data = imageData.data;
+
+      let result = [];
+
+      for (var i = 0, j = 0; i < data.length; i += 4, j++) {
+
+        if (j < 3) {
+
+          const red = data[i]
+          const green = data[i + 1]
+          const blue = data[i + 2]
+
+          const messageCodeString = [red, green, blue].map(item => {
+            return String(item).padStart(2, "0")
+          }).join("");
+
+          console.log(messageCodeString);
+          const word = String.fromCharCode(messageCodeString)
+          result.push(word)
+
+        }
+
+      }
+
+      console.log(result)
+
+      return 1
+    }
+
+    function setCanvasData(message) {
+      const messageArr = message.split("");
+      const messageCodeArr = messageArr.map(word => word.charCodeAt())
+      console.log(messageCodeArr)
+
+      const imageData = context.getImageData(0, 0, 20, 20);
+
+      const data = imageData.data;
+
+      for (var i = 0, j = 0; i < data.length; i += 4, j++) {
+
+        if (j < messageCodeArr.length) {
+          const messageCode = messageCodeArr[j];
+          const messageCodeString = String(messageCode).padStart(6, "0")
+          const [red, green, blue] = messageCodeString.match(/(.){1,2}/g)
+
+          data[i] = red;   // red
+          data[i + 1] = green; // green
+          data[i + 2] = blue; // blue
+        }
+
+      }
+
+      console.log(imageData)
+      // var myImageData = context.createImageData(anotherImageData);
+
+      context.putImageData(imageData, 0, 0);
+
+    }
+
+    // setCanvasData()
+
+
+  </script>
+</body>
+
+</html>

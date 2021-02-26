@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <div style="display: none">
+    <video id="video" controls width="300" height="180"  muted
+      src="http://v2.cri.cn/M00/00/6E/rBABDWA3X8GAKKgyAF-J8hgwTJQ096.mp4"></video>
+  </div>
+
+  <button onclick="handlePlay()">播放</button>
+  <script>
+    var canvas = document.getElementById("canvas")
+    var ctx = canvas.getContext('2d')
+    var video = document.getElementById("video")
+    canvas.width = video.width
+    canvas.height = video.height
+    video.onloadeddata = (data) => {
+      console.dir(data, video)
+
+      animate()
+    }
+    video.src = "http://v2.cri.cn/M00/00/6E/rBABDWA3X8GAKKgyAF-J8hgwTJQ096.mp4";
+    console.dir(video)
+
+    function handlePlay() {
+      video.play()
+
+    }
+
+    setTimeout(() => {
+      handlePlay()
+    }, 2000);
+
+
+    let i = 0;
+    let num;
+    function animate() {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+      if (i === 50) {
+
+        window.cancelAnimationFrame(num)
+        return;
+      }
+      num = requestAnimationFrame(animate);
+    }
+  </script>
+</body>
+
+</html>
