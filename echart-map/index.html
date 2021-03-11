@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="main" style="height: 500px;"></div>
+
+
+  <script crossorigin="anonymous"
+    integrity="sha512-lYwP7J1uo/wdEDtyvu/CjwYzsLnYnr6BInJbt2y5AIMl5PqVnyNh5cCvrrSTSB5Qb62RvdEZbt/rWuVFMHFXOQ=="
+    src="http://lib.baomitu.com/echarts/5.0.2/echarts.js"></script>
+
+  <script src="./china.js"></script>
+  <script src="./sichuan.js"></script>
+
+  <script>
+
+
+    var chart = echarts.init(document.getElementById('main'));
+
+    console.log(chart)
+    echarts.registerMap('china', JSON.stringify(chinaJson));
+
+    chart.setOption({
+      series: [{
+        type: 'map',
+        map: 'china'
+      }]
+    });
+
+    chart.on('click', function (params) {
+      console.log(params, params.name);
+
+      echarts.registerMap('sichuan', JSON.stringify(sichuan));
+
+      chart.setOption({
+        series: [{
+          type: 'map',
+          map: 'sichuan'
+        }]
+      });
+
+
+    });
+
+    console.log(this)
+  </script>
+
+</body>
+
+
+</html>

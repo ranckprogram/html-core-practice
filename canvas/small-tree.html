@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .canvas {
+      width: 1200px;
+      height: 600px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="canvas" class="canvas" width="1200" height="600"></canvas>
+
+
+  <script>
+
+    const canvas = document.querySelector("#canvas")
+    const context = canvas.getContext('2d');
+
+
+    // params
+    const params = {
+      origin: [0, 0],
+      space: 50,
+      nodeSize: [50, 36]
+    }
+
+
+    const data = [{
+      name: "飞机",
+      children: [{
+        name: "大飞机",
+        children: [{
+          name: "J5522"
+        }, {
+          name: "J5521"
+        }]
+      }, {
+        name: "中飞机",
+        children: [{
+          name: "Z5522"
+        }, {
+          name: "Z5521"
+        }]
+      }]
+    }]
+
+    // 生成布局信息
+    function formatTree(tree, x = 0, y = 0) {
+      const result = [];
+      const lineList = [];
+
+      /**
+       * start
+       * end
+       * */
+
+      tree.forEach((item, index) => {
+
+        const current = {
+          position: {
+            x,
+            y: y + index * params.space
+          },
+          data: item,
+        }
+
+        if (Array.isArray(item.children)) {
+          const [offsetX, offsetY] = params.nodeSize;
+          current.children = formatTree(item.children, x + offsetX + params.space, y + index * params.space);
+
+          console.log(current.children)
+        }
+
+        result.push(current)
+
+      })
+      return result
+    }
+
+
+    const [startX, startY] = params.origin;
+    const drawData = formatTree(data, startX, startY);
+    console.log(drawData)
+
+    function draw(drawData) {
+      drawData.forEach(item => {
+        drawCard(item);
+        // drawLine(item);
+        if (Array.isArray(item.children)) {
+          draw(item.children)
+        }
+      })
+
+    }
+
+    function drawCard(drawData) {
+
+      const { x, y } = drawData.position;
+      const { name } = drawData.data;
+      const [width, height] = params.nodeSize;
+      context.strokeRect(x, y, width, height);
+
+      context.fillText(name, x, y + 20);
+
+    }
+
+    function drawLine(drawData) {
+      const { x, y } = drawData.position;
+      const [width, height] = params.nodeSize;
+
+      const offsetY = height / 2
+
+      context.beginPath();
+      context.moveTo(x + width, y + offsetY);
+      context.lineTo(x + width + params.space, y + offsetY);
+      context.closePath();
+      context.stroke();
+    }
+
+
+    draw(drawData)
+
+
+    
+
+  </script>
+</body>
+
+</html>

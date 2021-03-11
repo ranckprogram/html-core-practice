@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="1200" height="800" style="border: 1px solid #ddd"></canvas>
+  <script>
+    const canvas = document.querySelector("#canvas")
+    const context = canvas.getContext("2d")
+
+
+    console.log(context)
+
+    function drawRect(x, y, width, height, radius) {
+      // context.fillRect(5, 5 ,20, 20)
+
+      context.beginPath();
+
+      const startTopX = x + radius;
+      const startTopY = y;
+
+      const endTopX = x + width - radius;
+      const endTopY = y;
+
+      const rightTopX = x + width;
+      const rightTopY = y + radius;
+
+      const rightBottomX = x + width;
+      const rightBottomY = y + height - radius;
+
+      const bottomRightX = x + width - radius;
+      const bottomRightY = y + height;
+
+      const bottomLeftX = x + radius;
+      const bottomLeftY = y + height;
+
+      const leftBottomX = x;
+      const leftBottomY = y + height - radius;
+
+      const leftTopX = x;
+      const leftTopY = y + radius;
+
+      context.moveTo(startTopX, startTopY);
+      context.lineTo(endTopX, endTopY)
+
+
+      context.moveTo(endTopX + radius, endTopY + radius);
+      context.arc(endTopX, endTopY + radius, radius, 0, -Math.PI / 2, true);
+
+
+      context.moveTo(rightTopX, rightTopY);
+      context.lineTo(rightBottomX, rightBottomY)
+
+      context.moveTo(rightBottomX, rightBottomY);
+      context.arc(rightBottomX - radius, rightBottomY, radius, 0, Math.PI / 2, false);
+
+
+      context.moveTo(bottomLeftX, bottomLeftY);
+      context.lineTo(bottomRightX, bottomRightY)
+
+
+      context.moveTo(bottomLeftX, bottomLeftY);
+      context.arc(bottomLeftX, bottomLeftY - radius, radius, Math.PI / 2, -Math.PI, false);
+
+
+
+      context.moveTo(leftBottomX, leftBottomY);
+      context.lineTo(leftTopX, leftTopY)
+
+
+      context.moveTo(leftTopX, leftTopY);
+      context.arc(leftTopX + radius, leftTopY, radius, Math.PI, -Math.PI / 2, false);
+
+
+      context.stroke();
+    }
+
+    drawRect(200, 200, 200, 120, 6)
+
+    drawRect(120, 20, 80, 60, 5)
+
+    drawRect(420, 220, 80, 60, 20)
+
+    drawRect(420, 80, 60, 60, 30)
+
+
+  </script>
+</body>
+
+</html>
