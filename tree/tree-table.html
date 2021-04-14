@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    th,
+    td {
+      /* border-bottom: 1px solid #ddd; */
+      border: 0;
+    }
+
+    .tree-table {}
+
+    .tree-table table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    .tree-table-header {}
+
+    .tree-table-content {}
+
+    .tree-table-cell {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tree-table-ul {}
+
+    .tree-table-line {}
+  </style>
+</head>
+
+<body>
+
+  <div class="tree-table" id="tree">
+    <header class="tree-table-header">
+      <table>
+        <colgroup>
+          <col width="310">
+          </col>
+          <col width="100">
+          </col>
+          <col width="80">
+          </col>
+          <col width="108">
+          </col>
+          <col width="80">
+          </col>
+          <col width="80">
+          </col>
+          <col width="240">
+          </col>
+        </colgroup>
+
+        <tr>
+          <th>子网</th>
+          <th>组织机构</th>
+          <th>子网类型</th>
+          <th>业务</th>
+          <th>创建方式</th>
+          <th>备注</th>
+          <th>使用率</th>
+          <th>操作</th>
+        </tr>
+      </table>
+    </header>
+
+    <section class="tree-table-content">
+      <table>
+        <tr>
+          <td id="tree-table-insert-point"></td>
+          <td style="display: none;">
+            <span class="tree-table-line"></span>
+            <table>
+              <colgroup>
+                <col width="310">
+                </col>
+                <col width="100">
+                </col>
+                <col width="80">
+                </col>
+                <col width="108">
+                </col>
+                <col width="80">
+                </col>
+                <col width="80">
+                </col>
+                <col width="240">
+                </col>
+              </colgroup>
+
+              <body>
+                <tr>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                  <td>
+                    <div class="tree-table-cell">dd</div>
+                  </td>
+                </tr>
+              </body>
+            </table>
+
+            <div class="tree-table-ul">
+              <table>
+                <tr>
+                  <td>
+
+                    <!-- table-node-cell start-->
+                    <div class="table-node-cell" id="table-node-cell-template">
+                      <span class="tree-table-line"></span>
+                      <table>
+                        <colgroup>
+                          <col width="310">
+                          </col>
+                          <col width="100">
+                          </col>
+                          <col width="80">
+                          </col>
+                          <col width="108">
+                          </col>
+                          <col width="80">
+                          </col>
+                          <col width="80">
+                          </col>
+                          <col width="240">
+                          </col>
+                        </colgroup>
+
+                        <body>
+                          <tr>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                            <td>
+                              <div class="tree-table-cell">dd</div>
+                            </td>
+                          </tr>
+                        </body>
+                      </table>
+
+                      <div class="tree-table-ul">
+
+                      </div>
+                    </div>
+                    <!-- table-node-cell end -->
+
+
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+    </section>
+
+  </div>
+
+  <script src="./tableData.js"></script>
+
+  <script>
+
+    const treeRoot = document.querySelector("#tree");
+
+    console.log(tableData);
+
+    const columns = [{
+      key: "prefix",
+      title: "子网",
+      width: 200
+    }, {
+      key: "semanticName",
+      title: "组织",
+      width: 200
+    }, {
+      key: "networkType",
+      title: "子网类型",
+      width: 200
+    }, {
+      key: "business",
+      title: "业务",
+      width: 200
+    }, {
+      key: "createMode",
+      title: "创建方式",
+      width: 200
+    }, {
+      key: "comment",
+      title: "备注",
+      width: 200
+    }, {
+      key: "dhcpUsage",
+      title: "使用率",
+      width: 200
+    }, {
+      key: "action",
+      title: "操作",
+      width: 200
+    },]
+
+    function list2Tree(data, parentId, children = "children", depth = 0) {
+      let res = [];
+      Array.isArray(data) && data.forEach((item) => {
+        if (item.parentId === parentId) {
+          let itemChildren = list2Tree(data, item.id, children, depth + 1);
+          if (itemChildren.length) item[children] = itemChildren;
+          item.expand = true;
+          item.open = true;
+          res.push({
+            ...item,
+            depth,
+          });
+        }
+      });
+      return res;
+    }
+
+    const treeData = list2Tree(tableData, "")
+
+    console.log(treeData)
+
+    const tableBody = document.querySelector("#tree-table-insert-point");
+
+
+    /**
+     * 
+    */
+    function render(el, data) {
+      let result = document.createDocumentFragment();
+      data.forEach(item => {
+        console.log(item)
+        const node = renderByAst(ast, item)
+        if (Array.isArray(item.children) && item.children.length) {
+
+          render(node, item.children)
+        }
+
+        result.append(node)
+      })
+
+      el.append(result)
+    }
+
+
+    function compiler(template) {
+      console.dir(template)
+      console.log(template.outerHTML)
+      const html = template.outerHTML;
+      const tagStartReg = /^</;
+      const tagEndReg = />$/
+
+
+      const result = html.match(tagStartReg)
+
+      console.log(result)
+    }
+
+
+    const ast = [{
+      type: "div",
+      class: "table-node-cell",
+      children: [{
+        type: "span",
+        class: "tree-table-line"
+      }, {
+        type: "table",
+        children: [{
+          type: "colgroup",
+          children: [{
+            type: "col",
+            attrs: {
+              width: 300
+            }
+          }, {
+            type: "col",
+            attrs: {
+              width: 100
+            }
+          }, {
+            type: "col",
+            attrs: {
+              width: 300
+            }
+          }, {
+            type: "col",
+            attrs: {
+              width: 300
+            }
+          }, {
+            type: "col",
+            attrs: {
+              width: 300
+            }
+          }, {
+            type: "col",
+            attrs: {
+              width: 300
+            }
+          }, {
+            type: "col",
+            attrs: {
+              width: 300
+            }
+          }]
+        }, {
+          type: "body",
+          children: [{
+            type: "tr",
+            children: [{
+              type: "td",
+              children: [{
+                type: "div",
+                class: "tree-table-cell"
+              }]
+            }]
+          }]
+        }]
+      }, {
+        type: "div",
+        class: "tree-table-ul"
+      }]
+    }]
+
+
+    // ast来渲染
+
+    function renderByAst(ast, data) {
+      let result = document.createDocumentFragment();
+      ast.forEach(item => {
+        const tag = document.createElement(item.type);
+        if (item.class) {
+          tag.classList.add(item.class)
+        }
+
+        if (typeof item.attrs === "object") {
+          for (let attr in item.attrs) {
+            tag.setAttribute(attr, item.attrs[attr])
+          }
+        }
+
+
+        if (Array.isArray(item.children) && item.children.length) {
+          tag.append(renderByAst(item.children))
+        }
+
+        result.appendChild(tag)
+
+      })
+      return result;
+    }
+
+
+    // compiler(document.querySelector("#table-node-cell-template"))
+
+    render(tableBody, treeData)
+
+  </script>
+</body>
+
+</html>

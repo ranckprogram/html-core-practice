@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+
+
+    var ConsoleManager = {
+      onOpen: function () {
+        alert("Console is opened")
+      },
+      onClose: function () {
+        alert("Console is closed")
+      },
+      init: function () {
+        var self = this;
+        console.log(this)
+        var x = document.createElement('div');
+        var isOpening = false, isOpened = false;
+        Object.defineProperty(x, 'id', {
+          get: function () {
+            console.log(isOpening)
+            if (!isOpening) {
+              self.onOpen();
+              isOpening = true;
+            }
+            isOpened = true;
+          }
+        });
+        setInterval(function () {
+          isOpened = false;
+          console.info(x);
+          console.clear();
+          if (!isOpened && isOpening) {
+            self.onClose();
+            isOpening = false;
+          }
+        }, 500)
+      }
+    }
+    // ConsoleManager.onOpen = function () {
+    //   try {
+    //     window.open('https://www.china-ipv6.cn', target = '_self');
+    //   } catch (err) {
+    //     var a = document.createElement("button");
+    //     a.onclick = function () {
+    //       window.open('https://www.china-ipv6.cn', target = '_self');
+    //     };
+    //     a.click();
+    //   }
+    // };
+    ConsoleManager.init();
+  </script>
+</head>
+
+<body>
+  <div></div>
+
+
+</body>
+
+</html>
