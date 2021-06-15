@@ -39,9 +39,10 @@
       window.requestAnimationFrame(() => render(el, data, index, count))
     }
 
-    function render(el, data, index = 0, count = 10) {
+    function render(el, data, index = 0, count = 1000) {
+      console.log("rendertimes")
       const container = document.createDocumentFragment();
-      let endIndex = Math.min( index + count, data.length)
+      let endIndex = Math.min(index + count, data.length)
 
       for (; index < endIndex; index++) {
         const div = document.createElement("div")
@@ -61,6 +62,9 @@
 
       if (index < data.length) {
         framRender(el, data, index, count)
+      } else {
+        console.timeEnd("renderTime")
+
       }
 
     }
@@ -68,6 +72,7 @@
     function boot() {
       const container = document.querySelector("#container")
       const data = createData();
+      console.time("renderTime")
 
       console.time("render")
       render(container, data)
