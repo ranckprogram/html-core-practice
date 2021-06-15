@@ -8,11 +8,20 @@
   <title>Document</title>
 
   <style>
+    table {
+      width: 100%;
+    }
+
+    tbody {
+      margin: 0;
+    }
+
     th,
     td {
       /* border-bottom: 1px solid #ddd; */
       border: 0;
     }
+
 
     .tree-table {}
 
@@ -23,15 +32,132 @@
 
     .tree-table-header {}
 
+    .tree-table-header th {
+      background-color: #f5f7fa;
+      font-weight: normal;
+      font-size: 14px;
+      color: #9f9f9f;
+      padding: 8px 0;
+    }
+
     .tree-table-content {}
 
+    .tree-table-content td {
+      height: 46px;
+      min-height: 46px;
+      border-bottom: 1px solid #fafafa;
+    }
+
+    .tree-table-content tr.tree-table-hover td {
+      background-color: #ebf7ff;
+    }
+
+
+    .table-node-cell {
+      position: relative;
+    }
+
+    .table-node-cell .tree-table-cell>.dd {
+      padding-left: 20px;
+    }
+
+    .tree-table-ul .table-node-cell:last-child .tree-table-line {
+      width: 20px;
+      display: none;
+    }
+
     .tree-table-cell {
-      border-bottom: 1px solid #ddd;
+      position: relative;
+      /* border-bottom: 1px solid #ddd; */
+      word-break: break-all;
     }
 
     .tree-table-ul {}
 
-    .tree-table-line {}
+    .tree-table-line {
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      background-color: #ddd;
+      left: 10px;
+      z-index: 10;
+    }
+
+    .tree-table-line.hasChildren {}
+
+    .tree-toggle {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      cursor: pointer;
+      z-index: 2;
+      left: 8px;
+      top: 4px;
+      border-left-color: #999;
+    }
+
+    .tree-open {
+      transform: rotate(90deg);
+
+      left: 4px;
+      top: 8px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .td-title {
+      padding-left: 20px;
+    }
+
+    .td-title ::before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      background-color: #ddd;
+      height: 200%;
+      left: -11px;
+      top: -31px;
+    }
+
+    .td-title ::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      background-color: #ddd;
+      height: 1px;
+      left: -12px;
+      top: 10px;
+    }
+
+    .td-title .tree-toggle::after {
+      left: -20px;
+      top: 0px;
+      display: none;
+    }
+
+
+    .level-1 {
+      margin-left: 20px;
+    }
+
+    .level-2 {
+      margin-left: 40px;
+    }
+
+    .level-3 {
+      margin-left: 60px;
+    }
+
+    .level-4 {
+      margin-left: 80px;
+    }
+
+    .level-5 {
+      margin-left: 100px;
+    }
   </style>
 </head>
 
@@ -40,23 +166,6 @@
   <div class="tree-table" id="tree">
     <header class="tree-table-header">
       <table>
-        <colgroup>
-          <col width="310">
-          </col>
-          <col width="100">
-          </col>
-          <col width="80">
-          </col>
-          <col width="108">
-          </col>
-          <col width="80">
-          </col>
-          <col width="80">
-          </col>
-          <col width="240">
-          </col>
-        </colgroup>
-
         <tr>
           <th>子网</th>
           <th>组织机构</th>
@@ -73,125 +182,7 @@
     <section class="tree-table-content">
       <table>
         <tr>
-          <td id="tree-table-insert-point"></td>
-          <td style="display: none;">
-            <span class="tree-table-line"></span>
-            <table>
-              <colgroup>
-                <col width="310">
-                </col>
-                <col width="100">
-                </col>
-                <col width="80">
-                </col>
-                <col width="108">
-                </col>
-                <col width="80">
-                </col>
-                <col width="80">
-                </col>
-                <col width="240">
-                </col>
-              </colgroup>
-
-              <body>
-                <tr>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                  <td>
-                    <div class="tree-table-cell">dd</div>
-                  </td>
-                </tr>
-              </body>
-            </table>
-
-            <div class="tree-table-ul">
-              <table>
-                <tr>
-                  <td>
-
-                    <!-- table-node-cell start-->
-                    <div class="table-node-cell" id="table-node-cell-template">
-                      <span class="tree-table-line"></span>
-                      <table>
-                        <colgroup>
-                          <col width="310">
-                          </col>
-                          <col width="100">
-                          </col>
-                          <col width="80">
-                          </col>
-                          <col width="108">
-                          </col>
-                          <col width="80">
-                          </col>
-                          <col width="80">
-                          </col>
-                          <col width="240">
-                          </col>
-                        </colgroup>
-
-                        <body>
-                          <tr>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                            <td>
-                              <div class="tree-table-cell">dd</div>
-                            </td>
-                          </tr>
-                        </body>
-                      </table>
-
-                      <div class="tree-table-ul">
-
-                      </div>
-                    </div>
-                    <!-- table-node-cell end -->
-
-
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </td>
+          <td colspan id="tree-table-insert-point"></td>
         </tr>
       </table>
 
@@ -199,6 +190,8 @@
 
   </div>
 
+
+  <script src="./ast.js"></script>
   <script src="./tableData.js"></script>
 
   <script>
@@ -207,39 +200,83 @@
 
     console.log(tableData);
 
+    const defEventMap = {
+      handleDelete: (row) => {
+        console.log("删除操作", row)
+        render(tableBody, treeData)
+
+      },
+      handleEdit: () => {
+        console.log("编辑操作")
+      }
+    };
+
     const columns = [{
       key: "prefix",
       title: "子网",
-      width: 200
+      width: 300
     }, {
       key: "semanticName",
       title: "组织",
-      width: 200
+      width: 100
     }, {
       key: "networkType",
       title: "子网类型",
-      width: 200
+      width: 80
     }, {
       key: "business",
       title: "业务",
-      width: 200
+      width: 80
     }, {
       key: "createMode",
       title: "创建方式",
-      width: 200
+      width: 80
     }, {
       key: "comment",
       title: "备注",
-      width: 200
+      width: 100
     }, {
       key: "dhcpUsage",
       title: "使用率",
-      width: 200
+      width: 80
     }, {
       key: "action",
       title: "操作",
-      width: 200
+      width: 100,
+      render: (row) => {
+        return {
+          type: "button",
+          on: {
+            click: "handleDelete"
+          },
+          data: row,
+          children: [{
+            type: "text",
+            value: "haha"
+          }]
+        }
+      }
     },]
+
+    function createColgroup(columns) {
+      let colgroupList = document.createDocumentFragment();
+
+      const colgroup = document.createElement("colgroup");
+
+      const colList = columns.map(item => {
+        const col = document.createElement("col");
+        col.width = item.width
+        return col
+      })
+
+      colgroup.append(...colList);
+      colgroupList.append(colgroup);
+
+      return colgroupList
+    }
+
+
+
 
     function list2Tree(data, parentId, children = "children", depth = 0) {
       let res = [];
@@ -260,119 +297,74 @@
 
     const treeData = list2Tree(tableData, "")
 
-    console.log(treeData)
 
     const tableBody = document.querySelector("#tree-table-insert-point");
 
 
-    /**
-     * 
-    */
     function render(el, data) {
       let result = document.createDocumentFragment();
       data.forEach(item => {
-        console.log(item)
-        const node = renderByAst(ast, item)
-        if (Array.isArray(item.children) && item.children.length) {
-
-          render(node, item.children)
-        }
-
+        const node = renderByAst(createAst(treeData,), item)
         result.append(node)
       })
-
+      clearChildrenDom(el)
       el.append(result)
     }
 
 
-    function compiler(template) {
-      console.dir(template)
-      console.log(template.outerHTML)
-      const html = template.outerHTML;
-      const tagStartReg = /^</;
-      const tagEndReg = />$/
+    function createAst(data, level = 0) {
 
+      level += 1
+      let result = [];
+      data.forEach(item => {
 
-      const result = html.match(tagStartReg)
+        const branch = createBaseAst(columns, item, level)
 
-      console.log(result)
+        if (Array.isArray(item.children) && item.children) {
+          const children = createAst(item.children, level)
+          branch.children[2].children = children
+        }
+
+        const node = {
+          ...branch
+        };
+
+        node.data = item;
+
+        result.push(node)
+      })
+
+      return result;
+
     }
-
-
-    const ast = [{
-      type: "div",
-      class: "table-node-cell",
-      children: [{
-        type: "span",
-        class: "tree-table-line"
-      }, {
-        type: "table",
-        children: [{
-          type: "colgroup",
-          children: [{
-            type: "col",
-            attrs: {
-              width: 300
-            }
-          }, {
-            type: "col",
-            attrs: {
-              width: 100
-            }
-          }, {
-            type: "col",
-            attrs: {
-              width: 300
-            }
-          }, {
-            type: "col",
-            attrs: {
-              width: 300
-            }
-          }, {
-            type: "col",
-            attrs: {
-              width: 300
-            }
-          }, {
-            type: "col",
-            attrs: {
-              width: 300
-            }
-          }, {
-            type: "col",
-            attrs: {
-              width: 300
-            }
-          }]
-        }, {
-          type: "body",
-          children: [{
-            type: "tr",
-            children: [{
-              type: "td",
-              children: [{
-                type: "div",
-                class: "tree-table-cell"
-              }]
-            }]
-          }]
-        }]
-      }, {
-        type: "div",
-        class: "tree-table-ul"
-      }]
-    }]
-
 
     // ast来渲染
 
     function renderByAst(ast, data) {
       let result = document.createDocumentFragment();
       ast.forEach(item => {
-        const tag = document.createElement(item.type);
+        let tag;
+        if (item.type === "text") {
+          tag = document.createTextNode(item.value);
+          result.appendChild(tag)
+          return
+        }
+
+        tag = document.createElement(item.type);
         if (item.class) {
-          tag.classList.add(item.class)
+          tag.classList.add(...item.class.split(" "))
+        }
+
+        if (item.className) {
+          tag.classList.add(...item.className.split(" "))
+        }
+
+        if (item.style) {
+          let style = "";
+          Object.keys(item.style).forEach(attr => {
+            style += `${attr}: ${item.style[attr]};`
+          })
+          tag.setAttribute("style", style);
         }
 
         if (typeof item.attrs === "object") {
@@ -381,23 +373,123 @@
           }
         }
 
+        if (typeof item.on === "object") {
+          for (let event in item.on) {
+            tag.setAttribute("data-row", JSON.stringify(item.data))
+
+            tag.setAttribute(event, item.on[event])
+
+
+            // 临时使用 直接绑定，后续还是想做成 事件委托
+          }
+        }
+
 
         if (Array.isArray(item.children) && item.children.length) {
           tag.append(renderByAst(item.children))
         }
-
         result.appendChild(tag)
 
       })
+
       return result;
     }
 
 
-    // compiler(document.querySelector("#table-node-cell-template"))
+    function findParent(el, fn) {
+      let parentNode = el.parentNode;
+      return fn(parentNode) ? parentNode : findParent(parentNode, fn)
+    }
+
+
+
+    function init() {
+
+      const colgroupList = createColgroup(columns);
+      document.querySelectorAll("table").forEach(item => {
+        item.insertBefore(colgroupList, item.firstChild)
+      })
+
+      treeRoot.addEventListener("mouseover", function (e) {
+        const target = e.target;
+        const tr = findParent(target, function (parentNode) {
+          return parentNode.tagName === "TR"
+        });
+
+        tr.classList.add("tree-table-hover")
+      });
+
+      treeRoot.addEventListener("mouseout", function (e) {
+        const target = e.target;
+        const tr = findParent(target, function (parentNode) {
+          return parentNode.tagName === "TR"
+        });
+        tr.classList.remove("tree-table-hover")
+
+      })
+
+      treeRoot.addEventListener("click", function (e) {
+        const target = e.target;
+        const classList = e.target.classList;
+        const eventMap = {
+          treeToggle: e.target.classList.contains("tree-toggle"),
+        }
+        console.dir(e.target)
+
+        // 折叠样式处理
+        if (eventMap.treeToggle) {
+          classList.toggle("tree-open");
+          const table = findParent(e.target, function (parentNode) {
+            return parentNode.tagName === "TABLE"
+          });
+          table.nextSibling.classList.toggle("hide");
+        }
+
+
+
+        // 时间处理
+        if (target.attributes.click) {
+          defEventMap[target.attributes.click.value](JSON.parse(target.attributes["data-row"].value))
+        }
+
+      })
+
+
+    }
+
+    function clearChildrenDom(el) {
+      let firstChild = el.firstChild;
+      if (firstChild) {
+        firstChild.remove();
+        clearChildrenDom(firstChild)
+      }
+    }
+
+    init()
+
+
 
     render(tableBody, treeData)
 
   </script>
 </body>
+
+<script>
+
+  function compiler(template) {
+    console.dir(template)
+    console.log(template.outerHTML)
+    const html = template.outerHTML;
+    const tagStartReg = /^<\S+/;
+    const tagEndReg = />$/
+
+
+    const result = html.match(tagStartReg)
+
+    console.log(result)
+  }
+
+    // console.log(compiler(document.querySelector("#table-node-cell-template")))
+</script>
 
 </html>
