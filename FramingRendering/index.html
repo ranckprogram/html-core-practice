@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="container"></div>
+
+
+  <script>
+
+    function createData() {
+
+      const data = localStorage.getItem("data")
+
+      if (data) {
+        return JSON.parse(data);
+      }
+      let result = [];
+
+      for (let i = 0; i < 100000; i++) {
+        result.push({
+          id: i,
+          name: Math.random() * 1000
+        })
+      }
+      localStorage.setItem("data", JSON.stringify(result))
+      return result
+    }
+
+
+    function framRender(el, data, index, count) {
+      window.requestAnimationFrame(() => render(el, data, index, count))
+    }
+
+    function render(el, data, index = 0, count = 1000) {
+      console.log("rendertimes")
+      const container = document.createDocumentFragment();
+      let endIndex = Math.min(index + count, data.length)
+
+      for (; index < endIndex; index++) {
+        const div = document.createElement("div")
+        const span = document.createElement("span")
+        const text = document.createElement("i")
+        const img = document.createElement("img")
+        div.innerHTML = data[index].name
+        div.classList.add("box")
+        span.innerHTML = data[index].id
+        text.innerHTML = data[index].id
+        container.append(div)
+        div.append(span)
+        div.append(text)
+        div.append(img)
+      }
+      el.append(container)
+
+      if (index < data.length) {
+        framRender(el, data, index, count)
+      } else {
+        console.timeEnd("renderTime")
+
+      }
+
+    }
+
+    function boot() {
+      const container = document.querySelector("#container")
+      const data = createData();
+      console.time("renderTime")
+
+      console.time("render")
+      render(container, data)
+      console.timeEnd("render")
+
+    }
+
+
+    boot()
+
+  </script>
+</body>
+
+</html>
