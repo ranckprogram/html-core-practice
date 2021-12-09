@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-plus/1.0.2-beta.65/theme-chalk/base.css" rel="stylesheet">
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-plus/1.0.2-beta.65/theme-chalk/el-icon.css" rel="stylesheet">
+  <link href="https://cdn.bootcdn.net/ajax/libs/element-plus/1.0.2-beta.65/theme-chalk/el-button.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+
+<body>
+
+  <div id="counter">
+    <el-icon color="#409EFC" class="el-icon-potato-strips">
+      <share />
+    </el-icon>
+      
+    <el-icon color="#409EFC" >
+      <share />
+    </el-icon>
+
+    <edit></edit>
+
+    <el-icon class="el-icon-success"></el-icon>
+      
+    {{counter}}
+
+    <el-button type="primary">Primary</el-button>
+
+  </div>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.0-beta.7/vue.global.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/element-plus/1.0.2-beta.65/index.full.js"></script>
+
+
+  <script>
+
+    const Counter = {
+      data() {
+        return {
+          counter: 1
+        }
+      }
+    }
+
+    const app = Vue.createApp(Counter)
+    app.use(ElementPlus)
+
+
+    app.mount('#counter')
+
+  </script>
+
+</body>
+
+</html>
