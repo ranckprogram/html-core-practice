@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      color: #f80;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .footer {
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+  <custom-wrapper>
+    <div slot="header">
+      <span is="custom-header" title="header" @click="onBack"></span>
+    </div>
+    <div slot="content">
+      <custom-paragraph messaeg="ddddd" col="10"></custom-paragraph>
+    </div>
+    <div slot="footer">
+      <div class="footer">
+        <custom-button onclick="handleClick()">保存</custom-button>
+      </div>
+    </div>
+  </custom-wrapper>
+
+
+
+
+
+
+
+
+  <template id="custom-wrapper">
+    <style>
+      .custom-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .custom-wrapper-header {
+        flex: 0 0 40px;
+      }
+
+      .custom-wrapper-content {
+        flex: 1;
+        overflow: hidden;
+        padding: 4px;
+      }
+
+      .custom-wrapper-footer {
+        /* flex: 0 0 40px; */
+      }
+    </style>
+
+    <div class="custom-wrapper">
+      <header class="custom-wrapper-header">
+        <slot name="header">
+          <span>None</span>
+        </slot>
+      </header>
+
+      <section class="custom-wrapper-content">
+        <slot name="content">
+          <span>None content</span>
+
+        </slot>
+      </section>
+      <footer class="custom-wrapper-footer">
+        <slot name="footer">
+          <span>None footer</span>
+
+        </slot>
+      </footer>
+    </div>
+
+  </template>
+
+  <script>
+    customElements.define('custom-wrapper',
+      class extends HTMLElement {
+        constructor() {
+          super();
+          const template = document
+            .getElementById('custom-wrapper')
+            .content;
+          const shadowRoot = this.attachShadow({ mode: 'open' })
+            .appendChild(template.cloneNode(true));
+        }
+      });
+  </script>
+
+
+
+  <script src="./components/header.js"></script>
+  <script src="./components/paragraph.js">  </script>
+  <script src="./components/button.js"></script>
+  <script>
+
+
+    function handleClick() {
+      console.log("save")
+    }
+
+
+    function handleBack(val) {
+      console.log("back", val)
+    }
+
+    document.addEventListener("onBack", (e) => {
+      const { detail } = e
+      console.log(detail)
+    })
+
+
+
+  </script>
+</body>
+
+</html>
